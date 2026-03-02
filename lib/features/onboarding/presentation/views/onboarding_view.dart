@@ -1,9 +1,11 @@
 import 'package:doc_appointment_app/assets.dart';
 import 'package:doc_appointment_app/core/theme/app_colors.dart';
+import 'package:doc_appointment_app/features/auth/presentation/views/get_started_view.dart';
 import 'package:doc_appointment_app/features/onboarding/data/models/onboarding_item_model.dart';
 import 'package:doc_appointment_app/features/onboarding/presentation/widgets/onboarding_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -56,10 +58,14 @@ class _OnboardingViewState extends State<OnboardingView> {
                 title: onboardingItems[index].title,
                 subtitle: onboardingItems[index].subtitle,
                 onNextPressed: () {
-                  controller.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.bounceIn,
-                  );
+                  if (index == onboardingItems.length - 1) {
+                    GoRouter.of(context).go(GetStartedView.routeName);
+                  } else {
+                    controller.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.bounceIn,
+                    );
+                  }
                 },
                 onSkipPressed: () {
                   controller.jumpToPage(onboardingItems.length - 1);
