@@ -27,6 +27,7 @@ class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isPasswordVisible = true;
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
@@ -85,13 +86,25 @@ class _LoginViewState extends State<LoginView> {
                     labelText: 'Password',
                     hintText: 'Password',
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: isPasswordVisible,
                     prefixIcon: Padding(
                       padding: EdgeInsets.all(12.w),
                       child: SvgPicture.asset(
                         Assets.images.lock_svg,
                         width: 20.w,
                         height: 20.h,
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
+                      icon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                     ),
                   ),

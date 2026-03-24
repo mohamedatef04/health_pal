@@ -31,6 +31,7 @@ class _PatientRegisterViewState extends State<PatientRegisterView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  bool isPasswordVisible = true;
 
   @override
   void dispose() {
@@ -105,13 +106,25 @@ class _PatientRegisterViewState extends State<PatientRegisterView> {
                     labelText: 'Password',
                     hintText: 'Password',
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: isPasswordVisible,
                     prefixIcon: Padding(
                       padding: EdgeInsets.all(12.w),
                       child: SvgPicture.asset(
                         Assets.images.lock_svg,
                         width: 20.w,
                         height: 20.h,
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
+                      icon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                     ),
                     validator: (value) => Validator.validatePassword(value),
