@@ -1,0 +1,22 @@
+import 'package:doc_appointment_app/features/auth/data/data_source/auth_data_source.dart';
+import 'package:doc_appointment_app/features/auth/data/repos/auth_repo.dart';
+import 'package:doc_appointment_app/features/auth/presentation/cubits/register/register_cubit.dart';
+import 'package:doc_appointment_app/features/auth/presentation/cubits/sign_in/sign_in_cubit.dart';
+import 'package:get_it/get_it.dart';
+
+final getIt = GetIt.instance;
+
+void setup() {
+  getIt.registerLazySingleton<AuthDataSource>(
+    () => AuthDataSourceImpl(),
+  );
+  getIt.registerLazySingleton<AuthRepo>(
+    () => AuthRepo(authDataSource: getIt()),
+  );
+  getIt.registerFactory<RegisterCubit>(
+    () => RegisterCubit(authRepo: getIt<AuthRepo>()),
+  );
+  getIt.registerFactory<SignInCubit>(
+    () => SignInCubit(authRepo: getIt<AuthRepo>()),
+  );
+}
