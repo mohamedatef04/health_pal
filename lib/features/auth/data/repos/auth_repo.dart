@@ -45,4 +45,12 @@ class AuthRepo {
       throw CustomException(e.toString());
     }
   }
+
+  Future<bool> isPatient({required String userId}) async {
+    try {
+      return await authDataSource.isPatient(userId: userId);
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
 }

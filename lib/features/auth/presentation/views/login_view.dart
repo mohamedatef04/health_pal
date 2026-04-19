@@ -3,21 +3,26 @@ import 'package:doc_appointment_app/core/helper/toast_bar.dart';
 import 'package:doc_appointment_app/core/theme/app_colors.dart';
 import 'package:doc_appointment_app/core/theme/app_text_styles.dart';
 import 'package:doc_appointment_app/core/widgets/custom_elevated_button.dart';
+import 'package:doc_appointment_app/features/auth/presentation/cubits/check_role/check_role_cubit.dart';
 import 'package:doc_appointment_app/features/auth/presentation/cubits/sign_in/sign_in_cubit.dart';
 import 'package:doc_appointment_app/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:doc_appointment_app/features/auth/presentation/widgets/or_divider.dart';
 import 'package:doc_appointment_app/features/auth/presentation/widgets/social_login_button.dart';
+import 'package:doc_appointment_app/features/doctor/home/presentation/screens/root_doctor_home_screen.dart';
+import 'package:doc_appointment_app/features/patient/home/presentation/screens/root_patient_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toastification/toastification.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key, this.role = 'patient'});
+  const LoginView({
+    super.key,
+  });
   static const String routeName = '/login';
-  final String role;
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -103,23 +108,31 @@ class _LoginViewState extends State<LoginView> {
                       },
                       icon: Icon(
                         isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                       ),
                     ),
                   ),
                   SizedBox(height: 24.h),
                   BlocConsumer<SignInCubit, SignInState>(
-                    listener: (context, state) {
+                    listener: (context, state) async {
                       if (state is SignInSuccess) {
-                        showToastificationBar(
-                          context: context,
-                          message: 'Login Success',
-                          title: 'Success',
-                          type: ToastificationType.success,
-                          color: AppColors.primaryColor,
-                          icon: Icons.check,
-                        );
+                        final userId =
+                            Supabase.instance.client.auth.currentUser!.id;
+                        final isPatient = await context
+                            .read<CheckRoleCubit>()
+                            .checkRole(
+                              userId: userId,
+                            );
+                        if (isPatient) {
+                          GoRouter.of(
+                            context,
+                          ).go(RootPatientHomeView.routeName);
+                        } else {
+                          GoRouter.of(
+                            context,
+                          ).go(RootDoctorHomeScreen.routeName);
+                        }
                       } else if (state is SignInFailure) {
                         showToastificationBar(
                           context: context,
@@ -189,11 +202,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          if (widget.role == 'doctor') {
-                            context.go('/doctor-register');
-                          } else {
-                            context.go('/patient-register');
-                          }
+                          GoRouter.of(context).pop();
                         },
                         child: Text(
                           'Sign up',
