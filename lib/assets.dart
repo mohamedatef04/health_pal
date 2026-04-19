@@ -34,14 +34,33 @@ final class _Images {
 
   final String app_icon_png = 'assets/images/app_icon.png';
   final String app_splash_png = 'assets/images/app_splash.png';
+  final String banner_png = 'assets/images/Banner.png';
+  final String calender_svg = 'assets/images/calender.svg';
+  final String cardio_png = 'assets/images/cardio.png';
+  final String clinic_png = 'assets/images/clinic.png';
+  final String dentistry_png = 'assets/images/dentistry.png';
+  final String doc_png = 'assets/images/doc.png';
   final String email_svg = 'assets/images/email.svg';
+  final String experince_svg = 'assets/images/experince.svg';
+  final String gastreon_png = 'assets/images/gastreon.png';
+  final String general_png = 'assets/images/general.png';
+  final String home_png = 'assets/images/Home.png';
+  final String lap_png = 'assets/images/lap.png';
   final String loading_svg = 'assets/images/Loading.svg';
   final String lock_svg = 'assets/images/lock.svg';
   final String logo_svg = 'assets/images/logo.svg';
-  final String onboarding_1_svg = 'assets/images/onboarding_1.png';
-  final String onboarding_2_svg = 'assets/images/onboarding_2.png';
-  final String onboarding_3_svg = 'assets/images/onboarding_3.png';
+  final String neorology_png = 'assets/images/neorology.png';
+  final String notification_bing_svg = 'assets/images/notification-bing.svg';
+  final String onboarding_1_png = 'assets/images/onboarding_1.png';
+  final String onboarding_2_png = 'assets/images/onboarding_2.png';
+  final String onboarding_3_png = 'assets/images/onboarding_3.png';
+  final String patients_svg = 'assets/images/patients.svg';
+  final String profile_svg = 'assets/images/profile.svg';
+  final String pulmono_png = 'assets/images/pulmono.png';
+  final String rate_svg = 'assets/images/rate.svg';
+  final String reviews_svg = 'assets/images/reviews.svg';
   final String splash_svg = 'assets/images/Splash.svg';
   final String success_svg = 'assets/images/success.svg';
   final String user_svg = 'assets/images/user.svg';
+  final String vassinat_png = 'assets/images/vassinat.png';
 }

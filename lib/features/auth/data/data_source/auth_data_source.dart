@@ -10,6 +10,7 @@ abstract class AuthDataSource {
     required String email,
     required String password,
   });
+  Future<bool> isPatient({required String userId});
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -38,5 +39,15 @@ class AuthDataSourceImpl implements AuthDataSource {
       email: email,
       password: password,
     );
+  }
+
+  @override
+  Future<bool> isPatient({required String userId}) async {
+    final response = await Supabase.instance.client
+        .from('users')
+        .select()
+        .eq('id', userId)
+        .single();
+    return response['role'] == 'patient';
   }
 }

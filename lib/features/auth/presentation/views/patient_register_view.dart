@@ -123,8 +123,8 @@ class _PatientRegisterViewState extends State<PatientRegisterView> {
                       },
                       icon: Icon(
                         isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                       ),
                     ),
                     validator: (value) => Validator.validatePassword(value),

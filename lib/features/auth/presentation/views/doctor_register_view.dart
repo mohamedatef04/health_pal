@@ -9,7 +9,7 @@ import 'package:doc_appointment_app/features/auth/presentation/cubits/register/r
 import 'package:doc_appointment_app/features/auth/presentation/views/login_view.dart';
 import 'package:doc_appointment_app/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:doc_appointment_app/features/auth/presentation/widgets/or_divider.dart';
-import 'package:doc_appointment_app/features/auth/presentation/widgets/social_login_button.dart';
+import 'package:doc_appointment_app/features/auth/presentation/widgets/specialization_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,6 +90,23 @@ class _DoctorRegisterViewState extends State<DoctorRegisterView> {
                     validator: (value) => Validator.validateEmptyText(value),
                   ),
                   SizedBox(height: 16.h),
+
+                  CustomTextField(
+                    labelText: 'Phone',
+                    hintText: 'Phone Number',
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(12.w),
+                      child: Icon(
+                        Icons.phone_outlined,
+                        size: 20.sp,
+                        color: AppColors.lightGreyColor,
+                      ),
+                    ),
+                    validator: (value) => Validator.validatePhone(value),
+                  ),
+                  SizedBox(height: 16.h),
                   CustomTextField(
                     labelText: 'Email',
                     hintText: 'Your Email',
@@ -127,43 +144,16 @@ class _DoctorRegisterViewState extends State<DoctorRegisterView> {
                       },
                       icon: Icon(
                         isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                       ),
                     ),
                     validator: (value) => Validator.validatePassword(value),
                   ),
                   SizedBox(height: 16.h),
-                  CustomTextField(
-                    labelText: 'Specialization',
-                    hintText: 'e.g. Cardiology',
-                    controller: _specializationController,
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(12.w),
-                      child: Icon(
-                        Icons.medical_services_outlined,
-                        size: 20.sp,
-                        color: AppColors.lightGreyColor,
-                      ),
-                    ),
-                    validator: (value) => Validator.validateEmptyText(value),
-                  ),
+                  SpecializationWidget(controller: _specializationController),
                   SizedBox(height: 16.h),
-                  CustomTextField(
-                    labelText: 'Phone',
-                    hintText: 'Phone Number',
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(12.w),
-                      child: Icon(
-                        Icons.phone_outlined,
-                        size: 20.sp,
-                        color: AppColors.lightGreyColor,
-                      ),
-                    ),
-                    validator: (value) => Validator.validatePhone(value),
-                  ),
+
                   SizedBox(height: 24.h),
                   BlocConsumer<RegisterCubit, RegisterState>(
                     listener: (context, state) {
@@ -216,24 +206,7 @@ class _DoctorRegisterViewState extends State<DoctorRegisterView> {
                   SizedBox(height: 8.h),
                   const OrDivider(),
                   SizedBox(height: 8.h),
-                  SocialLoginButton(
-                    text: 'Continue with Google',
-                    icon: const Text(
-                      'G',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                  SizedBox(height: 12.h),
-                  SocialLoginButton(
-                    text: 'Continue with Facebook',
-                    icon: const Icon(Icons.facebook, color: Colors.blue),
-                    onPressed: () {},
-                  ),
-                  SizedBox(height: 16.h),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

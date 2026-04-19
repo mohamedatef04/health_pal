@@ -52,4 +52,5 @@ abstract class AppColors {
   static const Color darkIndigoColor = Color(0xFF303F9F);
   static const Color darkVioletColor = Color(0xFF512DA8);
   static const Color darkBrownColor = Color(0xFF5D4037);
+  static const Color lightGrey = Color(0xFFF3F4F6);
 }
